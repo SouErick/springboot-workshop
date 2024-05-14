@@ -1,12 +1,15 @@
 package com.project.demospring.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 @Entity
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,6 +20,10 @@ public class Usuario implements Serializable{
 	private String email;
 	private String telefone;
 	private String senha;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Ordem> ordens = new ArrayList<>();
+	
 	public Usuario() {
 	}
 	public Usuario(Long id, String nome, String email, String telefone, String senha) {
@@ -57,6 +64,9 @@ public class Usuario implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	public List<Ordem> getOrdens() {
+		return ordens;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -72,5 +82,4 @@ public class Usuario implements Serializable{
 		Usuario other = (Usuario) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 }
