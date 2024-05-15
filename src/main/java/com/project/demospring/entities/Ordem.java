@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.demospring.entities.enums.StatusOrdem;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,16 +27,19 @@ public class Ordem implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento;
 	
+	private Integer status;
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
 	private Ordem() {
 	}
-	public Ordem(Long id, Instant momento, Usuario cliente) {
+	public Ordem(Long id, Instant momento, StatusOrdem status,Usuario cliente) {
 		super();
 		this.id = id;
 		this.momento = momento;
+		setStatus(status);
 		this.cliente = cliente;
 	}
 	public Long getId() {
@@ -49,6 +53,13 @@ public class Ordem implements Serializable{
 	}
 	public void setMomento(Instant momento) {
 		this.momento = momento;
+	}
+	public StatusOrdem getStatus() {
+		return StatusOrdem.valorDe(status);
+	}
+	public void setStatus(StatusOrdem status) {
+		if(status != null)
+			this.status = status.getCodigo();
 	}
 	public Usuario getCliente() {
 		return cliente;
