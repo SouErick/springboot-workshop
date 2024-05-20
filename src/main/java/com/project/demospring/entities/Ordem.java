@@ -33,7 +33,7 @@ public class Ordem implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
-	private Ordem() {
+	public Ordem() {
 	}
 	public Ordem(Long id, Instant momento, StatusOrdem status,Usuario cliente) {
 		super();
