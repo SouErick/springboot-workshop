@@ -25,7 +25,7 @@ public class Usuario implements Serializable{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private List<Ordem> ordens = new ArrayList<>();
+	private List<Pedido> ordens = new ArrayList<>();
 	
 	public Usuario() {
 	}
@@ -67,7 +67,7 @@ public class Usuario implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public List<Ordem> getOrdens() {
+	public List<Pedido> getOrdens() {
 		return ordens;
 	}
 	@Override

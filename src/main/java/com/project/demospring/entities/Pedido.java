@@ -2,10 +2,12 @@ package com.project.demospring.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.project.demospring.entities.enums.StatusOrdem;
+import com.project.demospring.entities.enums.StatusPedido;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +15,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Pedido")
-public class Ordem implements Serializable{
+public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -33,9 +36,12 @@ public class Ordem implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
-	public Ordem() {
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<PedidoDoProduto> itens = new HashSet<>();
+	
+	public Pedido() {
 	}
-	public Ordem(Long id, Instant momento, StatusOrdem status,Usuario cliente) {
+	public Pedido(Long id, Instant momento, StatusPedido status,Usuario cliente) {
 		super();
 		this.id = id;
 		this.momento = momento;
@@ -54,10 +60,10 @@ public class Ordem implements Serializable{
 	public void setMomento(Instant momento) {
 		this.momento = momento;
 	}
-	public StatusOrdem getStatus() {
-		return StatusOrdem.valorDe(status);
+	public StatusPedido getStatus() {
+		return StatusPedido.valorDe(status);
 	}
-	public void setStatus(StatusOrdem status) {
+	public void setStatus(StatusPedido status) {
 		if(status != null)
 			this.status = status.getCodigo();
 	}
@@ -66,6 +72,9 @@ public class Ordem implements Serializable{
 	}
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+	public Set<PedidoDoProduto> getItens() {
+		return itens;
 	}
 	@Override
 	public int hashCode() {
@@ -79,7 +88,7 @@ public class Ordem implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ordem other = (Ordem) obj;
+		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
 	}
 	

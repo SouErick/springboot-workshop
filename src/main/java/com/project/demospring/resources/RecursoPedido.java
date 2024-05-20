@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.demospring.entities.Ordem;
-import com.project.demospring.services.ServicosOrdem;
+import com.project.demospring.entities.Pedido;
+import com.project.demospring.services.ServicosPedido;
 
 @RestController
 @RequestMapping(value = "/pedidos")
-public class RecursoOrdem {
+public class RecursoPedido {
 	@Autowired
-	private ServicosOrdem servico;
+	private ServicosPedido servico;
 	@GetMapping
-	public ResponseEntity<List<Ordem>> acharTodos(){
-		List<Ordem> lista = servico.acharTodos();
+	public ResponseEntity<List<Pedido>> acharTodos(){
+		List<Pedido> lista = servico.acharTodos();
 		return ResponseEntity.ok().body(lista);
 	}
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Ordem> acharPorId(@PathVariable Long id){
-		Ordem obj = servico.acharPorId(id);
+	public ResponseEntity<Pedido> acharPorId(@PathVariable Long id){
+		Pedido obj = servico.acharPorId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

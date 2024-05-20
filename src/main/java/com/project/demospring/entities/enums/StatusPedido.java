@@ -1,6 +1,6 @@
 package com.project.demospring.entities.enums;
 
-public enum StatusOrdem {
+public enum StatusPedido {
 	PAGAMENTO_EM_ESPERA(1),
 	PAGO(2),
 	ENVIADO(3),
@@ -9,14 +9,14 @@ public enum StatusOrdem {
 	
 	private int codigo;
 	
-	private StatusOrdem(int codigo) {
+	private StatusPedido(int codigo) {
 		this.codigo = codigo;
 	}
 	public int getCodigo() {
 		return codigo;
 	}
-	public static StatusOrdem valorDe(int codigo) {
-		for(StatusOrdem obj : StatusOrdem.values()) {
+	public static StatusPedido valorDe(int codigo) {
+		for(StatusPedido obj : StatusPedido.values()) {
 			if(obj.getCodigo() == codigo) {
 				return obj;
 			}

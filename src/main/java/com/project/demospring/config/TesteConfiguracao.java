@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.project.demospring.entities.Categoria;
-import com.project.demospring.entities.Ordem;
+import com.project.demospring.entities.Pedido;
+import com.project.demospring.entities.PedidoDoProduto;
 import com.project.demospring.entities.Produto;
 import com.project.demospring.entities.Usuario;
-import com.project.demospring.entities.enums.StatusOrdem;
+import com.project.demospring.entities.enums.StatusPedido;
 import com.project.demospring.repositories.RepositorioCategoria;
-import com.project.demospring.repositories.RepositorioOrdem;
+import com.project.demospring.repositories.RepositorioPedido;
+import com.project.demospring.repositories.RepositorioPedidoDoProduto;
 import com.project.demospring.repositories.RepositorioProduto;
 import com.project.demospring.repositories.RepositorioUsuario;
 
@@ -25,13 +27,16 @@ public class TesteConfiguracao implements CommandLineRunner{
 	private RepositorioUsuario repositorioUsuario;
 	
 	@Autowired
-	private RepositorioOrdem repositorioOrdem;
+	private RepositorioPedido repositorioPedido;
 	
 	@Autowired
 	private RepositorioCategoria repositorioCategoria;
 	
 	@Autowired
 	private RepositorioProduto repositorioProduto;
+	
+	@Autowired
+	private RepositorioPedidoDoProduto repositorioPedidoDoProduto;
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
@@ -58,12 +63,18 @@ public class TesteConfiguracao implements CommandLineRunner{
 		Usuario u1 = new Usuario(null, "Erick", "erick@gmail.com", "999999999", "5678");
 		Usuario u2 = new Usuario(null, "Andrea", "andrea@hotmail.com", "912345678", "4232");
 		
-		Ordem o1 = new Ordem(null, Instant.parse("2024-05-20T18:23:02Z"), StatusOrdem.PAGO, u1);
-		Ordem o2 = new Ordem(null, Instant.parse("2024-02-21T20:43:10Z"), StatusOrdem.CANCELADO, u2);
-		Ordem o3 = new Ordem(null, Instant.parse("2024-04-22T04:12:30Z"), StatusOrdem.PAGAMENTO_EM_ESPERA, u1);
+		Pedido o1 = new Pedido(null, Instant.parse("2024-05-20T18:23:02Z"), StatusPedido.PAGO, u1);
+		Pedido o2 = new Pedido(null, Instant.parse("2024-02-21T20:43:10Z"), StatusPedido.CANCELADO, u2);
+		Pedido o3 = new Pedido(null, Instant.parse("2024-04-22T04:12:30Z"), StatusPedido.PAGAMENTO_EM_ESPERA, u1);
 			
 		repositorioUsuario.saveAll(Arrays.asList(u1, u2));
-		repositorioOrdem.saveAll(Arrays.asList(o1, o2, o3));
+		repositorioPedido.saveAll(Arrays.asList(o1, o2, o3));
+	
+		PedidoDoProduto oi1 = new PedidoDoProduto(o1, p1, 2, p1.getPreco()); 
+		PedidoDoProduto oi2 = new PedidoDoProduto(o1, p3, 1, p3.getPreco()); 
+		PedidoDoProduto oi3 = new PedidoDoProduto(o2, p3, 2, p3.getPreco()); 
+		PedidoDoProduto oi4 = new PedidoDoProduto(o3, p5, 2, p5.getPreco()); 
+		repositorioPedidoDoProduto.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 	
 }
