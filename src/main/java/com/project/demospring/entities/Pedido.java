@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.demospring.entities.enums.StatusPedido;
 
 import jakarta.persistence.CascadeType;
@@ -41,6 +42,7 @@ public class Pedido implements Serializable{
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<PedidoDoProduto> itens = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
 	
@@ -92,6 +94,15 @@ public class Pedido implements Serializable{
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
+	public Double getTotal() {
+		double soma = 0.0;
+		for(PedidoDoProduto obj : itens) {
+			soma += obj.getSubTotal();
+		}
+		return soma;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
