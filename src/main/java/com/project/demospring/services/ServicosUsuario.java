@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.demospring.entities.Usuario;
 import com.project.demospring.repositories.RepositorioUsuario;
+import com.project.demospring.services.exceptions.ResourceNotFoundException;
 @Service
 public class ServicosUsuario {
 	@Autowired
@@ -17,7 +18,7 @@ public class ServicosUsuario {
 	}
 	public Usuario acharPorId(Long id) {
 		Optional<Usuario> obj = repositorio.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	public Usuario inserir(Usuario obj) {
 		return repositorio.save(obj);
