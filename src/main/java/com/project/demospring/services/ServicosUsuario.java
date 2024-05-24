@@ -12,6 +12,8 @@ import com.project.demospring.entities.Usuario;
 import com.project.demospring.repositories.RepositorioUsuario;
 import com.project.demospring.services.exceptions.DatabaseException;
 import com.project.demospring.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 @Service
 public class ServicosUsuario {
 	@Autowired
@@ -36,9 +38,13 @@ public class ServicosUsuario {
 		}
 	}
 	public Usuario atualizar(Long id, Usuario obj) {
-		Usuario entidade = repositorio.getReferenceById(id);
+		try{
+			Usuario entidade = repositorio.getReferenceById(id);
 		atualizarDados(entidade, obj);
 		return repositorio.save(entidade);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	private void atualizarDados(Usuario entidade, Usuario obj) {
 		entidade.setNome(obj.getNome());
