@@ -21,3 +21,5 @@ Você pode interagir com a API usando o software de teste de API POSTMAN. Abaixo
 - **\/produtos**: CRUD para gerenciamento de produtos.
 
 Certifique-se de substituir os placeholders {id} pelos IDs reais dos usuários, categorias, pedidos e produtos em seus respectivos formulários.
+
+Para uma demonstração do projeto, confira este vídeo: [DemoSpring - WebService](https://youtu.be/sFjmcTmDb78).
