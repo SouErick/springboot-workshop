@@ -22,7 +22,7 @@ import com.project.demospring.repositories.RepositorioProduto;
 import com.project.demospring.repositories.RepositorioUsuario;
 
 @Configuration
-@Profile("test")
+@Profile({"dev","prod"})
 public class TesteConfiguracao implements CommandLineRunner{
 	@Autowired
 	private RepositorioUsuario repositorioUsuario;
