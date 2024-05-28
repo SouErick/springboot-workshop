@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo à DemoSpring!</title>
+    <title>DemoSpring!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,11 +29,13 @@
         p {
             color: #666;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         ul {
             list-style-type: none;
             padding: 0;
+            margin-bottom: 20px;
         }
 
         li {
@@ -49,6 +51,39 @@
         a:hover {
             color: #0056b3;
         }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +96,36 @@
             <li><a href="/pedidos">Pedidos</a></li>
             <li><a href="/produtos">Produtos</a></li>
         </ul>
+
+        <!-- Formulário para criar um novo usuário -->
+        <h3>Criar Novo Usuário</h3>
+        <form action="/usuarios" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <button type="submit">Criar Usuário</button>
+        </form>
+
+        <!-- Formulário para atualizar um usuário existente -->
+        <h3>Atualizar Usuário</h3>
+        <form action="/usuarios/{id}" method="PUT">
+            <label for="id">ID do Usuário:</label>
+            <input type="text" id="id" name="id">
+            <label for="nome">Novo Nome:</label>
+            <input type="text" id="nome" name="nome">
+            <label for="email">Novo Email:</label>
+            <input type="email" id="email" name="email">
+            <button type="submit">Atualizar Usuário</button>
+        </form>
+
+        <!-- Formulário para excluir um usuário -->
+        <h3>Excluir Usuário</h3>
+        <form action="/usuarios/{id}" method="DELETE">
+            <label for="id">ID do Usuário:</label>
+            <input type="text" id="id" name="id">
+            <button type="submit">Excluir Usuário</button>
+        </form>
     </div>
 </body>
 </html>
